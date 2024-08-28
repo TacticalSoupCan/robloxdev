@@ -1,0 +1,49 @@
+//really awesome door
+
+local frame = script.Parent:WaitForChild("GarageDoor")
+local openSound = frame:WaitForChild("DoorOpen")
+local closeSound = frame:WaitForChild("DoorClose")
+local proximityprompt = script.Parent.ClosedDoor:WaitForChild("ProximityPrompt")
+local model = script.Parent
+local frameClose = model:WaitForChild("ClosedDoor")
+local frameOpen = model:WaitForChild("OpenDoor")
+local tweenService = game:GetService("TweenService")
+
+local groupID = 33800046 
+
+proximityprompt.Triggered:Connect(function(player)
+	local playerRank = player:GetRankInGroup(33800046)
+	if playerRank >= 1 then 
+		if 	proximityprompt.ActionText == "Close" then
+			script.Parent.GarageDoor.AccessGranted:Play()
+			wait(1)
+			script.Parent.Alarm:Play()
+			wait(2.8)
+			proximityprompt.ActionText = "Open"
+			closeSound:Play()
+			frame.CanCollide = true
+			tweenService:Create(frame,TweenInfo.new(5),{CFrame = frameClose.CFrame}):Play()
+			script.Parent.Alarm:Play()
+			wait(2.8)
+			script.Parent.Alarm:Play()
+			wait(2.8)
+			script.Parent.Alarm:Play()
+			wait(2.8)
+		else
+			script.Parent.GarageDoor.AccessGranted:Play()
+			wait(1)
+			script.Parent.Alarm:Play()
+			wait(2.8)
+			proximityprompt.ActionText = "Close"
+			openSound:Play()
+			frame.CanCollide = true
+			tweenService:Create(frame,TweenInfo.new(5),{CFrame = frameOpen.CFrame}):Play()
+			script.Parent.Alarm:Play()
+			wait(2.8)
+			script.Parent.Alarm:Play()
+			wait(2.8)
+			script.Parent.Alarm:Play()
+			wait(2.8)
+		end
+	end
+end)
